@@ -29,42 +29,64 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(" World "),
-            Text(
-              "News ",
-              style:
-                  TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
-            ),
-          ],
+        appBar: AppBar(
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(" World "),
+              Text(
+                "News ",
+                style: TextStyle(
+                    color: Colors.orange, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 200,
-            child: ListView.builder(
-             scrollDirection: Axis.horizontal,
-                itemCount: categoryModelData.length,
-                itemBuilder: (context, index) {
-                  return CategoryContainer(categoryModelData: categoryModelData[index]);
-                }),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: newsModelData.length,
-                itemBuilder: (context, index) {
-                  return NewsContainer(newsModelData: newsModelData[index]);
-                }),
-          ),
-        ],
-      ),
+        /******* The body *******/
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 200,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: categoryModelData.length,
+                    itemBuilder: (context, index) {
+                      return CategoryContainer(
+                          categoryModelData: categoryModelData[index]);
+                    }),
+              ),
+            ),
+            SliverList(
+                delegate: SliverChildBuilderDelegate(
+                    childCount: newsModelData.length, (context, index) {
+              return NewsContainer(newsModelData: newsModelData[index]);
+            }))
+          ],
+        )
+        // Column(
+        //   children: [
+        //     SizedBox(
+        //       height: 200,
+        //       child: ListView.builder(
+        //        scrollDirection: Axis.horizontal,
+        //           itemCount: categoryModelData.length,
+        //           itemBuilder: (context, index) {
+        //             return CategoryContainer(categoryModelData: categoryModelData[index]);
+        //           }),
+        //     ),
+        //     Expanded(
+        //       child: ListView.builder(
+        //         physics: BouncingScrollPhysics(),
+        //           itemCount: newsModelData.length,
+        //           itemBuilder: (context, index) {
+        //             return NewsContainer(newsModelData: newsModelData[index]);
+        //           }),
+        //     ),
+        //   ],
+        // ),
 
-
-    );
+        );
   }
 }
