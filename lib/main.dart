@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:worlednews/services/news_sevice.dart';
 import 'package:worlednews/views/home_page.dart';
 
+final dio = Dio();
+
 void main() {
+  //NewsService(dio).getNews();
   runApp(const MyApp());
 }
-final dio = Dio();
 
 
 class MyApp extends StatelessWidget {
