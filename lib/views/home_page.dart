@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:worlednews/models/category_model.dart';
 import 'package:worlednews/models/news_model.dart';
+import 'package:worlednews/services/news_sevice.dart';
 import 'package:worlednews/widgets/category_container.dart';
 import 'package:worlednews/widgets/news_container.dart';
 
@@ -13,24 +14,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+List<NewsModelData> newsModelData = []  ;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+     getGeneralNews();
   }
-  final List<NewsModelData> newsModelData = [
-    NewsModelData(
-        newsTitle: "ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
-        newsDescription:
-            "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
-        image: "assets/news1.png"),
-    NewsModelData(
-        newsTitle: "ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
-        newsDescription:
-            "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
-        image: "assets/news1.png")
-  ];
+
+  Future<void> getGeneralNews() async {
+    newsModelData =  await NewsService(Dio()).getNews();
+  }
+
+  // final List<NewsModelData> newsModelData = [
+  //   NewsModelData(
+  //       newsTitle: "ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
+  //       newsDescription:
+  //           "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
+  //       image: "assets/news1.png"),
+  //   NewsModelData(
+  //       newsTitle: "ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
+  //       newsDescription:
+  //           "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
+  //       image: "assets/news1.png")
+  // ];
 
   final List<CategoryModelData> categoryModelData = [
     CategoryModelData(

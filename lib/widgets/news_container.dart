@@ -23,7 +23,7 @@ class NewsContainer extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0), // Set the corner radius
               image: DecorationImage(
-                image: AssetImage(newsModelData.image!),
+                image: AssetImage(newsModelData.image??"https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png"),
                 fit: BoxFit.cover, // Adjusts the image to fill the space
               ),
             ),
@@ -36,7 +36,7 @@ class NewsContainer extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         Text(
-          newsModelData.newsDescription,
+          newsModelData.newsDescription ?? "no Description available ",
           maxLines: 2,
         ),
       ],
