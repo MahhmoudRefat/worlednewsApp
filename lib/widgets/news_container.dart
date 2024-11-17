@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:worlednews/models/category_model.dart';
 import 'package:worlednews/models/news_model.dart';
+import 'package:worlednews/services/news_sevice.dart';
 
 class NewsContainer extends StatelessWidget {
   const NewsContainer({super.key, required this.newsModelData});
@@ -9,6 +11,8 @@ class NewsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NewsService(Dio()).getNews();
+
     return Column(
       children: [
         Padding(
@@ -19,7 +23,7 @@ class NewsContainer extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0), // Set the corner radius
               image: DecorationImage(
-                image: AssetImage(newsModelData.image),
+                image: AssetImage(newsModelData.image!),
                 fit: BoxFit.cover, // Adjusts the image to fill the space
               ),
             ),

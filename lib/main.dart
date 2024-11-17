@@ -6,7 +6,7 @@ import 'package:worlednews/views/home_page.dart';
 final dio = Dio();
 
 void main() {
-  //NewsService(dio).getNews();
+  NewsService(dio).getNews();
   runApp(const MyApp());
 }
 

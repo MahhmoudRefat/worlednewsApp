@@ -1,20 +1,37 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:worlednews/models/category_model.dart';
 import 'package:worlednews/models/news_model.dart';
 import 'package:worlednews/widgets/category_container.dart';
 import 'package:worlednews/widgets/news_container.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   final List<NewsModelData> newsModelData = [
-    NewsModelData("ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
-        "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
+    NewsModelData(
+        newsTitle: "ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
+        newsDescription:
+            "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
         image: "assets/news1.png"),
-    NewsModelData("ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
-        "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
+    NewsModelData(
+        newsTitle: "ارتفاع أسعار الوقود في مصر يثير موجة من الجدل",
+        newsDescription:
+            "شهدت مصر اليوم ارتفاعاً ملحوظاً في أسعار الوقود، مما أثار ردود فعل واسعة بين المواطنين وأصحاب المركبات. يترقب المواطنون تأثير هذه الزيادة على أسعار السلع والخدمات، وسط دعوات من الخبراء لترشيد استهلاك الطاقة",
         image: "assets/news1.png")
   ];
+
   final List<CategoryModelData> categoryModelData = [
     CategoryModelData(
       image: "assets/bussines.png",
@@ -43,7 +60,7 @@ class HomePage extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        /******* The body *******/
+        /******************* The body *******/
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
