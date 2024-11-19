@@ -19,7 +19,7 @@ class NewsContainer extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Container(
             width: double.infinity, // Set the width
-            height: 250.0, // Set the height (optional)
+            height: 220.0, // Set the height (optional)
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0), // Set the corner radius
               image: DecorationImage(

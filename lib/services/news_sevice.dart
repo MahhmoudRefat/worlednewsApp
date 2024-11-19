@@ -13,6 +13,7 @@ class NewsService {
     //List<Map<String , dynamic>> articles = jsonData["articles"] as List<Map <String,dynamic>>;
     List<dynamic> articles = jsonData["articles"];
     List<NewsModelData> newsModelList = [];
+
     for (var article in articles) {
       NewsModelData newsModelData = NewsModelData(
         newsTitle: article["title"],

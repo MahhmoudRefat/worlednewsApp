@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 List<NewsModelData> newsModelData = []  ;
+bool isLoading = true; // حالة التحميل
 
   @override
   void initState() {
@@ -23,8 +24,23 @@ List<NewsModelData> newsModelData = []  ;
      getGeneralNews();
   }
 
+// Future<void> getGeneralNews() async {
+//   try {
+//     newsModelData = await NewsService(Dio()).getNews();
+//   } catch (e) {
+//     print("Error fetching news: $e");
+//   } finally {
+//     setState(() {
+//       isLoading = false; // تحميل البيانات انتهى
+//     });
+//   }
+// }
+
   Future<void> getGeneralNews() async {
     newsModelData =  await NewsService(Dio()).getNews();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   // final List<NewsModelData> newsModelData = [
@@ -69,27 +85,31 @@ List<NewsModelData> newsModelData = []  ;
           centerTitle: true,
         ),
         /******************* The body *******/
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 200,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categoryModelData.length,
-                    itemBuilder: (context, index) {
-                      return CategoryContainer(
-                          categoryModelData: categoryModelData[index]);
-                    }),
-              ),
-            ),
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-                    childCount: newsModelData.length, (context, index) {
-              return NewsContainer(newsModelData: newsModelData[index]);
-            }))
-          ],
+        body: isLoading? const Center(
+          child: CircularProgressIndicator(), // مؤشر تحميل
         )
+          : CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryModelData.length,
+                      itemBuilder: (context, index) {
+                        return CategoryContainer(
+                            categoryModelData: categoryModelData[index]);
+                      }),
+                ),
+              ),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      childCount: newsModelData.length, (context, index) {
+                return NewsContainer(newsModelData: newsModelData[index]);
+              }))
+            ],
+          ),
+
         // Column(
         //   children: [
         //     SizedBox(
