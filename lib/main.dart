@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:worlednews/services/news_sevice.dart';
 import 'package:worlednews/views/home_page.dart';
 
+import 'models/news_model.dart';
+
 final dio = Dio();
+List<NewsModelData> newsModelData = []  ;
 
 void main() {
  // NewsService(dio).getNews();
