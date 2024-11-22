@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:worlednews/views/article_external_web_view.dart';
 import '../main.dart';
 import '../models/news_model.dart';
 import 'category_container.dart';
@@ -11,7 +12,8 @@ class NewsListview extends StatelessWidget {
   const NewsListview({super.key, required this.newsModelData});
 
   final List<NewsModelData> newsModelData;
- // List<NewsModelData> newsModelData = [];
+
+  // List<NewsModelData> newsModelData = [];
 
   @override
   Widget build(BuildContext context) {
