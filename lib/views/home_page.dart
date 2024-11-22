@@ -4,8 +4,9 @@ import 'package:worlednews/models/category_model.dart';
 import 'package:worlednews/models/news_model.dart';
 import 'package:worlednews/services/news_sevice.dart';
 import 'package:worlednews/widgets/category_container.dart';
-import 'package:worlednews/widgets/news_container.dart';
+import 'package:worlednews/widgets/news_tile.dart';
 
+import '../widgets/categorylistview.dart';
 import '../widgets/news_listview_builder.dart';
 
 class HomePage extends StatelessWidget {
@@ -31,13 +32,25 @@ class HomePage extends StatelessWidget {
           ),
           centerTitle: true,
         ),
-        /******************* The body *******/
-        body: NewsListViewBuilder());
 
+        /******************* The body *******/
+        body: const CustomScrollView(
+           physics: BouncingScrollPhysics(),
+          slivers: [
+            /********* Category  List *****************/
+              SliverToBoxAdapter(child: CategoryListView()),
+            /******* Spaces between them **************/
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32,
+              ),
+            ),
+            /********* News List *****************/
+            NewsListViewBuilder(category: "general",),
+          ],
+        ));
   }
 }
-
-
 
 // Column(
 //   children: [

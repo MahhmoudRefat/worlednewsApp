@@ -5,8 +5,8 @@ import 'package:worlednews/views/home_page.dart';
 
 import 'models/news_model.dart';
 
-final dio = Dio();
-List<NewsModelData> newsModelData = []  ;
+//final dio = Dio();
+//List<NewsModelData> newsModelData = []  ;
 
 void main() {
  // NewsService(dio).getNews();
