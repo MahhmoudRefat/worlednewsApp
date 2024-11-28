@@ -32,7 +32,7 @@ class _ArticleExternalWebViewState extends State<ArticleExternalWebView> {
           // SliverToBoxAdapter to include a WebView
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 400, // Set height for the WebView
+              height: 600, // Set height for the WebView
               child: WebViewWidget(controller: controller,
               ),
             ),

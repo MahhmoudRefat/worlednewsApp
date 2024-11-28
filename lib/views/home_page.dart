@@ -1,52 +1,113 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:worlednews/models/category_model.dart';
-import 'package:worlednews/models/news_model.dart';
-import 'package:worlednews/services/news_sevice.dart';
-import 'package:worlednews/widgets/category_container.dart';
-import 'package:worlednews/widgets/news_tile.dart';
-
+import '../helpers/date_updater.dart';
 import '../widgets/categorylistview.dart';
 import '../widgets/news_listview_builder.dart';
+import 'package:intl/intl.dart'; // For date formatting
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
-  List<NewsModelData> newsModelData = [];
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late String formattedDate;
+  final DateUpdater dateUpdater = DateUpdater();
+
+  // GlobalKey to access the NewsListViewBuilder's state
+  final GlobalKey<NewsListViewBuilderState> newsListViewKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    dateUpdater.updateDate((date) {
+      setState(() {
+        formattedDate = date;
+      });
+    });
+    dateUpdater.scheduleMidnightUpdate((date) {
+      setState(() {
+        formattedDate = date;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    dateUpdater.dispose(); // Cancel the timer
+    super.dispose();
+  }
 
 // Future<void> getGeneralNews() async {
   @override
   Widget build(BuildContext context) {
+    // Get the current date
     return Scaffold(
         appBar: AppBar(
-          title: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(" World "),
-              Text(
-                "News ",
-                style: TextStyle(
-                    color: Colors.orange, fontWeight: FontWeight.bold),
-              ),
-            ],
+          leading: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Image.asset("assets/world_icon.png", fit: BoxFit.contain),
           ),
-          centerTitle: true,
+          title: const Text(
+            "World News ",
+            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+          ),
+          //centerTitle: true,
         ),
 
         /******************* The body *******/
-        body: const CustomScrollView(
-           physics: BouncingScrollPhysics(),
+        body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
-            /********* Category  List *****************/
-              SliverToBoxAdapter(child: CategoryListView()),
-            /******* Spaces between them **************/
             SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  formattedDate, // Display current date
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
+                ),
+              ),
+            ),
+
+            /********* Category  List *****************/
+
+            const SliverToBoxAdapter(child: CategoryListView()),
+            /******* Spaces between them **************/
+            const SliverToBoxAdapter(
               child: SizedBox(
-                height: 32,
+                height: 5,
               ),
             ),
             /********* News List *****************/
-            NewsListViewBuilder(category: "general",),
+            SliverToBoxAdapter(
+              child: MaterialButton(
+                onPressed: () {
+                  print("Refresh button clicked");
+                  newsListViewKey.currentState?.refreshNews();
+                },
+                color: Colors.green, // Button background color
+                textColor: Colors.white,
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  // Makes sure the row takes the least space needed
+                  children: [
+                    Text("What's New"),
+                    SizedBox(width: 8),
+                    // Adds some space between the text and the icon
+                    Icon(Icons.refresh),
+                    // Refresh icon
+                  ],
+                ), // Text color
+              ),
+            ),
+            NewsListViewBuilder(
+              key: newsListViewKey,
+              category: "general",
+            ),
           ],
         ));
   }
