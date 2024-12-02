@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../helpers/date_updater.dart';
 import '../widgets/categorylistview.dart';
 import '../widgets/news_listview_builder.dart';
-import 'package:intl/intl.dart'; // For date formatting
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});

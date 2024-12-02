@@ -7,7 +7,7 @@ import '../models/news_model.dart';
 import '../services/news_sevice.dart';
 
 class NewsListViewBuilder extends StatefulWidget {
-  const NewsListViewBuilder({Key? key, required this.category}) : super(key: key);
+  const NewsListViewBuilder({super.key, required this.category});
   final String category;
   @override
   State<NewsListViewBuilder> createState() => NewsListViewBuilderState();
@@ -26,24 +26,8 @@ class NewsListViewBuilderState extends State<NewsListViewBuilder> {
   Future<void> refreshNews() async {
     print("Refreshing news for category: ${widget.category}");
     setState(() {
-      // Update the future to trigger a rebuild with fresh data
-     // NewsService(Dio()).getTopHeadlines(category: widget.category);
-       FutureBuilder<List<NewsModelData>>(
-          future: future,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return NewsListview(newsModelData: snapshot.data!);
-            }
-            else if (snapshot.hasError) {
-              return const SliverToBoxAdapter(
-                child: Center(child: Text("ops there was an error , try later ")),
-              );
-            }
-            else {
-              return const SliverToBoxAdapter(
-                  child: Center(child: CircularProgressIndicator()));
-            }
-          });
+      // Update the `future` with a new fetch request
+      future = NewsService(Dio()).getTopHeadlines(category: widget.category);
     });
   }
   // Future<void> getGeneralNews() async {

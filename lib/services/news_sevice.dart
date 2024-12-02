@@ -14,14 +14,9 @@ class NewsService {
       //List<Map<String , dynamic>> articles = jsonData["articles"] as List<Map <String,dynamic>>;
       List<dynamic> articles = jsonData["articles"];
       List<NewsModelData> newsModelList = [];
-      /*********** Data parsing ****************/
+      /*********** Data parsing ********** بنبنى الاوبجكت  ******/
       for (var article in articles) {
-        NewsModelData newsModelData = NewsModelData(
-          newsTitle: article["title"],
-          newsDescription: article["description"],
-          image: article["urlToImage"],
-          url: article["url"]
-        );
+        NewsModelData newsModelData = NewsModelData.fromJson(article);
         newsModelList.add(newsModelData);
       }
       return newsModelList;
